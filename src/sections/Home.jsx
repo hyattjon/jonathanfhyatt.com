@@ -30,7 +30,7 @@ export default function Home() {
           </a>
         </div>
         <div className="home__fields">
-          {['Macroeconomics', 'Microeconomics', 'Econometrics', 'Machine Learning for Economics'].map(f => (
+          {['Micro-informed Macroeconomics', 'Econometrics', 'Machine Learning for Economics'].map(f => (
             <span key={f} className="home__field-tag">{f}</span>
           ))}
         </div>
