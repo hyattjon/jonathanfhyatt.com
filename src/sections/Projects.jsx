@@ -1,0 +1,125 @@
+import { useEffect, useState } from 'react';
+
+const GITHUB_USERNAME = 'jonathanfhyatt';
+
+// Add or remove repo slugs here to control which repos are displayed.
+const PINNED_REPOS = [
+  'repo-one',
+  'repo-two',
+  'repo-three',
+];
+
+const LANG_COLORS = {
+  Python: '#3572A5',
+  R: '#198CE7',
+  JavaScript: '#f1e05a',
+  TypeScript: '#3178c6',
+  Jupyter_Notebook: '#DA5B0B',
+  Shell: '#89e051',
+  HTML: '#e34c26',
+  CSS: '#563d7c',
+};
+
+function LanguageDot({ language }) {
+  if (!language) return null;
+  const color = LANG_COLORS[language.replace(/ /g, '_')] ?? '#888882';
+  return (
+    <span className="project-card__lang">
+      <span className="project-card__lang-dot" style={{ backgroundColor: color }} />
+      {language}
+    </span>
+  );
+}
+
+function StarCount({ count }) {
+  if (!count) return null;
+  return (
+    <span className="project-card__stars">
+      <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor">
+        <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z" />
+      </svg>
+      {count}
+    </span>
+  );
+}
+
+function ProjectCard({ name, description, language, stargazers_count, html_url }) {
+  return (
+    <article className="project-card">
+      <h3 className="project-card__title">{name}</h3>
+      {description && <p className="project-card__desc">{description}</p>}
+      <div className="project-card__meta">
+        <LanguageDot language={language} />
+        <StarCount count={stargazers_count} />
+      </div>
+      <div className="project-card__links">
+        <a className="project-card__link" href={html_url} target="_blank" rel="noreferrer">
+          View on GitHub &rarr;
+        </a>
+      </div>
+    </article>
+  );
+}
+
+function SkeletonCard() {
+  return (
+    <article className="project-card project-card--skeleton">
+      <div className="skeleton skeleton--title" />
+      <div className="skeleton skeleton--line" />
+      <div className="skeleton skeleton--line skeleton--short" />
+    </article>
+  );
+}
+
+export default function Projects() {
+  const [repos, setRepos] = useState([]);
+  const [status, setStatus] = useState('loading'); // 'loading' | 'done' | 'error'
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    Promise.all(
+      PINNED_REPOS.map(slug =>
+        fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${slug}`, {
+          signal: controller.signal,
+          headers: { Accept: 'application/vnd.github+json' },
+        }).then(r => {
+          if (!r.ok) throw new Error(`${slug}: ${r.status}`);
+          return r.json();
+        })
+      )
+    )
+      .then(data => {
+        setRepos(data);
+        setStatus('done');
+      })
+      .catch(err => {
+        if (err.name !== 'AbortError') setStatus('error');
+      });
+
+    return () => controller.abort();
+  }, []);
+
+  return (
+    <section id="projects" className="section">
+      <p className="section__label">Coding Projects</p>
+      <h2 className="section__title">Selected Repositories</h2>
+
+      {status === 'error' && (
+        <p className="projects__error">
+          Could not load repositories. Visit{' '}
+          <a href={`https://github.com/${GITHUB_USERNAME}`} target="_blank" rel="noreferrer">
+            GitHub
+          </a>{' '}
+          directly.
+        </p>
+      )}
+
+      <div className="projects__grid">
+        {status === 'loading'
+          ? PINNED_REPOS.map(s => <SkeletonCard key={s} />)
+          : repos.map(repo => <ProjectCard key={repo.id} {...repo} />)}
+      </div>
+    </section>
+  );
+}
