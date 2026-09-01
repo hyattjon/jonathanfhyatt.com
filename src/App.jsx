@@ -13,7 +13,7 @@ function Nav() {
   return (
     <nav className="nav">
       <div className="nav__inner">
-        <span className="nav__name">Jonathan F. Hyatt</span>
+        <span className="nav__name">Jonathan Hyatt</span>
         <ul className="nav__links">
           {NAV_LINKS.map(({ href, label }) => (
             <li key={href}>
@@ -29,7 +29,7 @@ function Nav() {
 function Footer() {
   return (
     <footer className="footer">
-      &copy; {new Date().getFullYear()} Jonathan F. Hyatt &middot; jonathanhyatt@uchicago.edu
+      &copy; {new Date().getFullYear()} Jonathan Hyatt &middot; hyatt.jonathan99@gmail.com
     </footer>
   );
 }
