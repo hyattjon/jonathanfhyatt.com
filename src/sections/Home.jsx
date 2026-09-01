@@ -13,9 +13,9 @@ export default function Home() {
         />
         <div className="home__content">
           <h1 className="home__name">Jonathan Hyatt</h1>
-          <p className="home__title">Pre-Doctoral Research Fellow, University of Chicago Booth School of Business</p>
+          <p className="home__title">Pre-Doctoral Research Professional, University of Chicago Booth School of Business</p>
           <p className="home__bio">
-            I am a pre-doctoral research fellow at the University of Chicago Booth School of Business,
+            I am a pre-doctoral research professional at the University of Chicago Booth School of Business,
             working with Kilian Huber and Ludwig Straub on large-scale consumer transaction microdata.
             I graduated from Brigham Young University in April 2025 with a B.S. in Economics with a Minor in Mathematics. I am applying to economics PhD programs.
           </p>

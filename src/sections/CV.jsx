@@ -9,7 +9,7 @@ const education = [
 
 const research = [
   {
-    title: 'Pre-Doctoral Research Fellow',
+    title: 'Pre-Doctoral Research Professional',
     subtitle: 'University of Chicago Booth School of Business',
     date: '2025 – Present',
     supervisors: 'Kilian Huber (University of Chicago) and Ludwig Straub (Harvard University)',
