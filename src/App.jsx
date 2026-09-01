@@ -3,12 +3,11 @@ import './App.css';
 import Home from './sections/Home';
 import CV from './sections/CV';
 import Projects from './sections/Projects';
-import WritingSample from './sections/WritingSample';
 
 const NAV_LINKS = [
   { href: '#home', label: 'Home' },
   { href: '#cv', label: 'CV' },
-  { href: '#writing', label: 'Writing' },
+
   { href: '#projects', label: 'Projects' },
 ];
 
@@ -54,7 +53,7 @@ export default function App() {
       <main className="page">
         <Home />
         <CV />
-        <WritingSample />
+        {/* <WritingSample /> */}
         <Projects />
       </main>
       <Footer />
