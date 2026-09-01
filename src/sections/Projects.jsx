@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 
-const GITHUB_USERNAME = 'jonathanfhyatt';
+const GITHUB_USERNAME = 'hyattjon';
 
 // Add or remove repo slugs here to control which repos are displayed.
 const PINNED_REPOS = [
-  'repo-one',
-  'repo-two',
-  'repo-three',
+  'weak_instruments',
 ];
 
 const LANG_COLORS = {
