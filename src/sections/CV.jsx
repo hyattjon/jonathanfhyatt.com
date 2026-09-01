@@ -3,75 +3,107 @@ const education = [
     institution: 'Brigham Young University',
     degree: 'B.S. Economics (Major), Mathematics (Minor)',
     date: 'April 2025',
-    detail: 'GPA: 3.83/4.00 · Coursework: Macroeconomics (Bradford), Microeconomics (Lefgren), Econometrics (Pope), Machine Learning for Economics (Frandsen), Graduate Microeconomics I & II (Condie, Platt), Graduate Macroeconomics (Vom Lehn)',
+    detail: 'GPA: 3.83/4.00 · Coursework: Macroeconomics, Microeconomics, Econometrics, Machine Learning for Economics, Graduate Microeconomics I & II, Graduate Macroeconomics',
   },
-];
-
-const awards = [
-  { title: 'Alvina Soffel Barrett Scholarship', subtitle: 'Merit Based · Brigham Young University', date: '' },
-  { title: 'Richard and Patricia Clyde Scholarship', subtitle: 'Merit Based · Brigham Young University', date: '' },
-  { title: 'Regents Scholarship', subtitle: 'Merit Based · State of Utah', date: '2019' },
 ];
 
 const research = [
   {
-    title: 'Research Assistant',
-    subtitle: 'Dr. Scott Condie · Brigham Young University',
-    date: '2023 – Present',
-    detail: 'Built dataset via Python API calls. Cleaned, visualized, and summarized data. Performed literature review and drafted paper sections in LaTeX.',
+    title: 'Pre-Doctoral Research Fellow',
+    subtitle: 'University of Chicago Booth School of Business',
+    date: '2025 – Present',
+    supervisors: 'Kilian Huber (University of Chicago) and Ludwig Straub (Harvard University)',
+    bullets: [
+      'Process large-scale Visa transaction microdata using Hive and PySpark, working with hundreds of millions of consumer-level observations.',
+      'Resolve geographic location attribution problems in transaction data using economic intuition and spatial heuristics.',
+      // 'Construct the U.S. extension of the Disaggregated Economic Accounts (DEA) model, adapting methods from Andersen, Huber, Johannesen, Straub & Vestergaard (QJE, 2026); acknowledged in published paper.',
+    ],
   },
   {
-    title: 'Teaching Assistant — Machine Learning for Economics',
-    subtitle: 'Dr. Brigham Frandsen · Brigham Young University',
-    date: '2024 – Present',
-    detail: 'Taught introductory Python lab session. Migrated all course materials to GitHub.',
+    title: 'Research Assistant to Prof. Scott Condie',
+    subtitle: 'Brigham Young University, Department of Economics',
+    date: '2023 – 2025',
+    bullets: [
+      'Constructed original dataset via Python API calls.',
+      'Cleaned, visualized, and summarized data; performed literature review.',
+      'Co-authored draft using LaTeX.',
+    ],
   },
 ];
 
+const teaching = [
+  {
+    title: 'Teaching Assistant — Machine Learning for Economics',
+    subtitle: 'Prof. Brigham Frandsen, Brigham Young University',
+    date: '2024 – 2025',
+    bullets: [
+      'Led Python lab sessions and migrated course materials to GitHub.',
+    ],
+  },
+];
+
+const awards = [
+  { title: 'Alvina Soffel Barrett Scholarship (merit-based)', subtitle: 'Brigham Young University', date: '2023' },
+  { title: 'Richard and Patricia Clyde Scholarship (merit-based)', subtitle: 'Brigham Young University', date: '2023' },
+  { title: 'Regents Scholarship (merit-based)', subtitle: 'State of Utah', date: '2019' },
+];
+
 const skills = [
-  { title: 'Programming & Software', subtitle: 'Python, STATA, LaTeX, Tableau', date: '' },
-  { title: 'Languages', subtitle: 'English (native), Spanish (fluent — passed 16-credit BYU challenge exam)', date: '' },
+  { title: 'Programming', subtitle: 'Python, PySpark, Stata, LaTeX, Hive (HQL), Front-End Development (HTML/CSS/JS)', date: '' },
+  { title: 'Data', subtitle: 'Large-scale transaction microdata, SQL, Tableau, GitHub', date: '' },
+  { title: 'Languages', subtitle: 'English (native), Spanish (fluent — passed 16-credit challenge exam at BYU)', date: '' },
 ];
 
 const service = [
   {
+    title: 'Volunteer Missionary — Church of Jesus Christ of Latter-day Saints',
+    subtitle: 'Argentina Comodoro Rivadavia Mission / Washington D.C. South Mission',
+    date: '2019 – 2021',
+    bullets: ['Led 10-person team and designed data tracking tools for pipeline management.'],
+  },
+  {
     title: 'Teacher — Missionary Training Center',
     subtitle: 'The Church of Jesus Christ of Latter-day Saints',
     date: '2021 – 2023',
-    detail: 'Trained senior missionaries on finance, housing, office responsibilities, and core curriculum.',
+    bullets: ['Trained senior missionaries on finance, housing, and core curriculum.'],
   },
   {
-    title: 'Volunteer Missionary',
-    subtitle: 'Argentina Comodoro Rivadavia & Washington D.C. South Missions',
-    date: '2019 – 2021',
-    detail: 'Led a 10-person team. Developed fluent Spanish.',
-  },
-  {
-    title: 'Staff — Timberline National Youth Leadership Training, Boy Scouts of America',
-    subtitle: 'Patrol Guide / Instructor (2018, 2019) · Intern (2017)',
+    title: 'Staff — Timberline National Youth Leadership Training, BSA',
+    subtitle: 'Eagle Scout (2017)',
     date: '2017 – 2019',
-    detail: '',
-  },
-  {
-    title: 'Eagle Scout',
-    subtitle: 'Project: organized 35 volunteers to create and deliver blankets for a children\'s hospital',
-    date: '2017',
-    detail: '',
   },
 ];
 
-function CVBlock({ title, entries }) {
+function CVEntry({ entry }) {
+  const { title, institution, degree, subtitle, date, detail, supervisors, bullets } = entry;
   return (
-    <div className="cv__block">
+    <div className="cv__entry">
+      <div className="cv__entry-header">
+        <span className="cv__entry-title">{title || institution}</span>
+        {date && <span className="cv__entry-date">{date}</span>}
+      </div>
+      <p className="cv__entry-subtitle">{degree || subtitle}</p>
+      {supervisors && (
+        <p className="cv__entry-supervisors">Supervisors: {supervisors}</p>
+      )}
+      {detail && <p className="cv__entry-detail">{detail}</p>}
+      {bullets && bullets.length > 0 && (
+        <ul className="cv__entry-bullets">
+          {bullets.map((b, i) => <li key={i}>{b}</li>)}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+import { useScrollReveal } from '../hooks/useScrollReveal';
+
+function CVBlock({ title, entries }) {
+  const ref = useScrollReveal();
+  return (
+    <div className="cv__block reveal" ref={ref}>
       <h3 className="cv__section-title">{title}</h3>
-      {entries.map((e, i) => (
-        <div key={i} className="cv__entry">
-          <span className="cv__entry-title">{e.title || e.institution}</span>
-          {e.date && <span className="cv__entry-date">{e.date}</span>}
-          <span className="cv__entry-subtitle">{e.degree || e.subtitle}</span>
-          {e.detail && <p className="cv__entry-detail">{e.detail}</p>}
-        </div>
-      ))}
+      {entries.map((e, i) => <CVEntry key={i} entry={e} />)}
     </div>
   );
 }
@@ -81,11 +113,12 @@ export default function CV() {
     <section id="cv" className="section--alt">
       <div className="section__inner">
         <p className="section__label">Curriculum Vitae</p>
-        <a className="cv__download-link" href="/cv.pdf" target="_blank" rel="noreferrer">
+        <a className="cv__download-link" href="/Jonathan_Hyatt_CV.pdf" target="_blank" rel="noreferrer">
           Download full CV (PDF) &rarr;
         </a>
         <CVBlock title="Education" entries={education} />
-        <CVBlock title="Research & Teaching Experience" entries={research} />
+        <CVBlock title="Research Positions" entries={research} />
+        <CVBlock title="Teaching Experience" entries={teaching} />
         <CVBlock title="Honors & Awards" entries={awards} />
         <CVBlock title="Skills" entries={skills} />
         <CVBlock title="Service & Leadership" entries={service} />

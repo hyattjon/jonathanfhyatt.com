@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 const GITHUB_USERNAME = 'hyattjon';
 
@@ -98,8 +99,11 @@ export default function Projects() {
     return () => controller.abort();
   }, []);
 
+  const ref = useScrollReveal();
+
   return (
     <section id="projects" className="section">
+      <div className="reveal" ref={ref}>
       <p className="section__label">Coding Projects</p>
       <h2 className="section__title">Selected Repositories</h2>
 
@@ -117,6 +121,7 @@ export default function Projects() {
         {status === 'loading'
           ? PINNED_REPOS.map(s => <SkeletonCard key={s} />)
           : repos.map(repo => <ProjectCard key={repo.id} {...repo} />)}
+      </div>
       </div>
     </section>
   );
