@@ -43,6 +43,7 @@ const teaching = [
 ];
 
 const awards = [
+  { title: "Dean's List, Economics", subtitle: 'Brigham Young University', date: '2023' },
   { title: 'Alvina Soffel Barrett Scholarship (merit-based)', subtitle: 'Brigham Young University', date: '2023' },
   { title: 'Richard and Patricia Clyde Scholarship (merit-based)', subtitle: 'Brigham Young University', date: '2023' },
   { title: 'Regents Scholarship (merit-based)', subtitle: 'State of Utah', date: '2019' },
