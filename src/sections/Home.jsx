@@ -23,8 +23,8 @@ export default function Home() {
         <div className="home__links">
           <a className="home__link" href="mailto:jonathanhyatt@uchicago.edu">Email</a>
           <a className="home__link" href="#cv">Curriculum Vitae</a>
-          <a className="home__link" href="#projects">Coding Projects</a>
-          <a className="home__link" href="https://github.com/hyattjon" target="_blank" rel="noreferrer">GitHub</a>
+          <a className="home__link" href="#projects">Projects</a>
+          <a className="home__link" href="#github">GitHub</a>
         </div>
         <div className="home__fields">
           {['Micro-informed Macroeconomics', 'Econometrics', 'Machine Learning for Economics'].map(f => (

@@ -384,14 +384,29 @@
   margin-bottom: var(--space-8);
 }
 
-/* ── Projects ── */
-.projects__grid {
+/* ── Projects (working papers) ── */
+.projects__placeholder {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* ── GitHub ── */
+.github__profile-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-accent);
+  margin-bottom: var(--space-8);
+}
+
+.github__grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-6);
 }
 
-.project-card {
+.repo-card {
   background-color: var(--color-surface);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-md);
@@ -400,31 +415,31 @@
   transition: box-shadow var(--transition-base);
 }
 
-.project-card:hover {
+.repo-card:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.09);
 }
 
-.project-card__title {
+.repo-card__title {
   font-size: var(--font-size-lg);
   color: var(--color-text-primary);
   margin-bottom: var(--space-2);
 }
 
-.project-card__desc {
+.repo-card__desc {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   line-height: var(--line-height-relaxed);
   margin-bottom: var(--space-4);
 }
 
-.project-card__tags {
+.repo-card__tags {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
   margin-bottom: var(--space-4);
 }
 
-.project-card__tag {
+.repo-card__tag {
   font-size: var(--font-size-xs);
   font-family: var(--font-mono);
   background-color: var(--color-tag-bg);
@@ -433,7 +448,7 @@
   border-radius: var(--radius-sm);
 }
 
-.project-card__meta {
+.repo-card__meta {
   display: flex;
   align-items: center;
   gap: var(--space-4);
@@ -442,32 +457,32 @@
   color: var(--color-text-secondary);
 }
 
-.project-card__lang {
+.repo-card__lang {
   display: flex;
   align-items: center;
   gap: var(--space-2);
 }
 
-.project-card__lang-dot {
+.repo-card__lang-dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
   flex-shrink: 0;
 }
 
-.project-card__stars {
+.repo-card__stars {
   display: flex;
   align-items: center;
   gap: var(--space-1);
   color: var(--color-text-muted);
 }
 
-.project-card__links {
+.repo-card__links {
   display: flex;
   gap: var(--space-4);
 }
 
-.project-card__link {
+.repo-card__link {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-accent);
@@ -507,7 +522,7 @@
   width: 70%;
 }
 
-.projects__error {
+.github__error {
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
   margin-bottom: var(--space-6);
@@ -668,12 +683,12 @@
     align-self: flex-start;
   }
 
-  /* Project cards */
-  .project-card__meta {
+  /* Repo cards */
+  .repo-card__meta {
     flex-wrap: wrap;
   }
 
-  .project-card__links {
+  .repo-card__links {
     flex-wrap: wrap;
   }
 }

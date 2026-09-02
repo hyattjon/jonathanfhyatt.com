@@ -3,12 +3,13 @@ import './App.css';
 import Home from './sections/Home';
 import CV from './sections/CV';
 import Projects from './sections/Projects';
+import GitHub from './sections/GitHub';
 
 const NAV_LINKS = [
   { href: '#home', label: 'Home' },
   { href: '#cv', label: 'CV' },
-
   { href: '#projects', label: 'Projects' },
+  { href: '#github', label: 'GitHub' },
 ];
 
 function Nav() {
@@ -55,6 +56,7 @@ export default function App() {
         <CV />
         {/* <WritingSample /> */}
         <Projects />
+        <GitHub />
       </main>
       <Footer />
     </>
