@@ -6,7 +6,7 @@ const GITHUB_USERNAME = 'hyattjon';
 // Add or remove repo slugs here to control which repos are displayed.
 const PINNED_REPOS = [
   'weak_instruments',
-  'usa-dea-jhyatt',
+  //'usa-dea-jhyatt',
 ];
 
 const LANG_COLORS = {
