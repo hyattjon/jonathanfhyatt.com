@@ -26,7 +26,7 @@ const research = [
     bullets: [
       'Constructed original dataset via Python API calls.',
       'Cleaned, visualized, and summarized data; performed literature review.',
-      'Co-authored draft using LaTeX.',
+      'Produced write-up using LaTeX.',
     ],
   },
 ];
