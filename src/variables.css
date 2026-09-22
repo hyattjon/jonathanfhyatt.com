@@ -12,6 +12,15 @@
   --color-tag-bg: #eef3fb;
   --color-tag-text: #2a5298;
 
+  /* Data visualization: heat-map spectrum, lowest -> highest (dark blue, light blue, yellow,
+     red). Read by the map via getComputedStyle; the legend is drawn from the same colors. */
+  --heat-1: #0d366b;
+  --heat-2: #9ec5f4;
+  --heat-3: #fcd53f;
+  --heat-4: #c1121f;
+  /* counties with nothing landing (none, or under the legend floor) */
+  --color-data-none: #d4d1c9;
+
   /* Typography */
   --font-heading: 'Crimson Pro', Georgia, serif;
   --font-sans: 'Inter', system-ui, sans-serif;
@@ -43,6 +52,9 @@
 
   /* Layout */
   --max-width: 780px;
+  --max-width-wide: 1180px;
+  --panel-width: 20rem;
+  --tap-target: 2.75rem;
   --nav-height: 56px;
   --section-padding-y: var(--space-24);
 

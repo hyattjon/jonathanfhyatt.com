@@ -1,0 +1,526 @@
+/* Circular Flow page. Colors, sizes and fonts come from variables.css; map data colors are the
+   --heat-* spectrum and --color-data-none. Shared chrome (nav, footer, .section__*) is in App.css. */
+
+.flow-page {
+  max-width: var(--max-width-wide);
+  margin: 0 auto;
+  /* .page reserves room for the fixed nav; keep it */
+  padding: calc(var(--nav-height) + var(--space-12)) var(--space-6) var(--space-16);
+}
+
+/* Intro */
+.flow-intro {
+  max-width: var(--max-width);
+  margin-bottom: var(--space-8);
+}
+
+.flow-intro .section__title {
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--space-4);
+}
+
+.flow-intro__lead {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.flow-notes {
+  margin-top: var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.flow-notes summary {
+  cursor: pointer;
+  color: var(--color-accent);
+  font-weight: var(--font-weight-medium);
+}
+
+.flow-notes ul {
+  margin-top: var(--space-3);
+  padding-left: var(--space-6);
+  display: grid;
+  gap: var(--space-2);
+}
+
+/* Loading / error */
+.flow-status {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+  padding: var(--space-8) 0;
+  color: var(--color-text-secondary);
+}
+
+.flow-status progress {
+  width: 100%;
+  max-width: var(--max-width);
+  accent-color: var(--color-accent);
+}
+
+/* Controls */
+.flow-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--space-6);
+  padding: var(--space-6);
+  margin-bottom: var(--space-6);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.flow-field {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2);
+  border: 0;
+  min-width: 0;
+}
+
+.flow-field > label,
+.flow-field > legend {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: 0;
+}
+
+.flow-field input[type='text'],
+.flow-field input:not([type]),
+.flow-field input[type='number'],
+.flow-field input[list] {
+  width: 100%;
+  min-height: var(--tap-target);
+  padding: var(--space-2) var(--space-3);
+  font: inherit;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.flow-field__hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.flow-chips {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.flow-chip {
+  min-height: var(--space-8);
+  padding: 0 var(--space-3);
+  font: inherit;
+  font-size: var(--font-size-sm);
+  color: var(--color-tag-text);
+  background: var(--color-tag-bg);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.flow-chip--on {
+  border-color: var(--color-accent);
+}
+
+.flow-radio {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  min-height: var(--space-8);
+  cursor: pointer;
+}
+
+.flow-radio input {
+  accent-color: var(--color-accent);
+}
+
+.flow-radio--gap {
+  margin-top: var(--space-2);
+}
+
+/* Map + side panel */
+.flow-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--panel-width);
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.flow-stage {
+  min-width: 0;
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-4) var(--space-6);
+}
+
+.flow-stage__title {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--space-2);
+}
+
+.flow-map {
+  position: relative;
+}
+
+.flow-map__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.flow-map__county {
+  fill: var(--color-data-none);
+  stroke: var(--color-surface);
+  stroke-width: 0.35;
+  cursor: pointer;
+}
+
+.flow-map__svg--static .flow-map__county {
+  cursor: default;
+}
+
+.flow-map__outline {
+  fill: none;
+  pointer-events: none;
+}
+
+.flow-map__halo {
+  stroke: var(--color-surface);
+  stroke-width: 3.6;
+}
+
+.flow-map__line {
+  stroke: var(--color-text-primary);
+  stroke-width: 1.4;
+}
+
+.flow-map__outline--hover .flow-map__halo {
+  stroke-width: 2.6;
+}
+
+.flow-map__outline--hover .flow-map__line {
+  stroke-width: 0.9;
+}
+
+/* Income tax / rest-of-world sinks, drawn as circles in the Gulf of Mexico -- not real counties,
+   so they get a stroke (real county fills sit edge-to-edge with no visible outline) and a label. */
+.flow-map__marker {
+  stroke: var(--color-text-primary);
+  stroke-width: 1.4;
+  cursor: pointer;
+}
+
+.flow-map__marker-label {
+  text-anchor: middle;
+  font-size: 10px;
+  font-weight: var(--font-weight-medium);
+  fill: var(--color-text-secondary);
+  pointer-events: none;
+}
+
+.flow-map__tooltip {
+  position: absolute;
+  z-index: 2;
+  min-width: 13rem;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-sm);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  pointer-events: none;
+  transform: translate(var(--space-4), var(--space-4));
+}
+
+.flow-map__tooltip--flip {
+  transform: translate(calc(-100% - var(--space-4)), var(--space-4));
+}
+
+.flow-map__tooltip-title {
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-1);
+}
+
+.flow-map__tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  color: var(--color-text-secondary);
+}
+
+.flow-map__tooltip-row span:last-child {
+  color: var(--color-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Legend */
+.flow-legend {
+  margin-top: var(--space-3);
+}
+
+.flow-legend__caption {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-1);
+}
+
+.flow-legend__row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.flow-legend__none {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.flow-legend__swatch {
+  width: var(--space-4);
+  height: var(--space-3);
+  background: var(--color-data-none);
+  border: var(--border-width) solid var(--color-border);
+}
+
+.flow-legend__scale {
+  flex: 1;
+  min-width: 14rem;
+  max-width: 28rem;
+}
+
+.flow-legend__ramp {
+  height: var(--space-3);
+  /* the gradient itself is set inline from the color scale, so it always matches the map */
+  border: var(--border-width) solid var(--color-border);
+}
+
+.flow-legend__ticks {
+  position: relative;
+  height: var(--space-4);
+}
+
+.flow-legend__tick {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Player */
+.flow-player {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+}
+
+.flow-btn {
+  min-height: var(--tap-target);
+  padding: 0 var(--space-6);
+  font: inherit;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-surface);
+  background: var(--color-accent);
+  border: var(--border-width) solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.flow-btn:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+}
+
+.flow-btn--quiet {
+  color: var(--color-accent);
+  background: var(--color-surface);
+  padding: 0 var(--space-4);
+}
+
+.flow-btn--quiet:hover:not(:disabled) {
+  background: var(--color-tag-bg);
+}
+
+.flow-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.flow-player__slider {
+  flex: 1;
+  min-width: 10rem;
+  display: grid;
+  gap: var(--space-1);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.flow-player__slider input {
+  width: 100%;
+  accent-color: var(--color-accent);
+}
+
+.flow-player__speed {
+  display: grid;
+  gap: var(--space-1);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.flow-player__speed select {
+  min-height: var(--space-8);
+  font: inherit;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+/* Overview (static map across every starting county) */
+.flow-overview {
+  margin-top: var(--space-24);
+  padding-top: var(--space-12);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.flow-overview__toggle {
+  display: flex;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+  border: 0;
+  margin-bottom: var(--space-2);
+}
+
+.flow-overview__legend {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.flow-overview__note {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+/* Side panel */
+.flow-side {
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.flow-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(5.5rem, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.flow-stats dt {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.flow-stats dd {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.flow-side__title {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+.flow-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.flow-table th,
+.flow-table td {
+  padding: var(--space-1) 0;
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.flow-table th {
+  text-align: left;
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-secondary);
+}
+
+.flow-table td {
+  text-align: right;
+  padding-left: var(--space-3);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.flow-link {
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  color: var(--color-accent);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.flow-link:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+}
+
+.flow-page :focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .flow-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .flow-page {
+    padding: calc(var(--nav-height) + var(--space-8)) var(--space-4) var(--space-12);
+  }
+
+  .flow-intro .section__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .flow-controls {
+    padding: var(--space-4);
+  }
+}
