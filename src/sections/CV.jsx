@@ -14,7 +14,7 @@ const research = [
     date: '2025 – Present',
     supervisors: 'Kilian Huber (University of Chicago) and Ludwig Straub (Harvard University)',
     bullets: [
-      'Process large-scale Visa transaction microdata using Hive and PySpark, working with hundreds of millions of consumer-level observations.',
+      'Process large-scale card transaction microdata using Hive and PySpark, working with hundreds of millions of consumer-level observations.',
       'Resolve geographic location attribution problems in transaction data using economic intuition and spatial heuristics.',
       // 'Construct the U.S. extension of the Disaggregated Economic Accounts (DEA) model, adapting methods from Andersen, Huber, Johannesen, Straub & Vestergaard (QJE, 2026); acknowledged in published paper.',
     ],
